@@ -26,10 +26,10 @@ jobs:
             mkdir -p /tmp/$id
           fi
 
-  echo-job:
-    needs: Explore-GitHub-Actions
-    runs-on: ubuntu-latest
-    steps:
       - name: List docker images
         run: docker image ls
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+        if: success()
+
+      - name: Echo job
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+        if: success()
