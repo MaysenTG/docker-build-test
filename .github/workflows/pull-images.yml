@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        docker_image: ['nginx:latest', 'alpine:latest', 'ubuntu:latest', 'node:latest', 'python:latest']
+        docker_image: ['nginx:latest', 'alpine:latest']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
