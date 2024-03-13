@@ -10,22 +10,27 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        docker_image: ['nginx:latest', 'alpine:latest']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
       - name: Run commands on image
+        id: run_nginx
         run: |
-          docker pull ${{ matrix.docker_image }}
-          if docker image inspect ${{ matrix.docker_image }}
+          docker pull nginx:latest
+          if docker image inspect nginx:latest
           then
-            id=$(docker create ${{ matrix.docker_image }})
+            id=$(docker create nginx:latest)
             mkdir -p /tmp/$id
+            echo "no_change=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Echo job
-        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+        run: |
+          if {{steps.run_nginx.outputs.no_change}}
+          then
+            echo "Image same Do not run kubectle stuff"
+          else
+            echo "Image diff run kubectl commands"
+          fi
         if: success()
