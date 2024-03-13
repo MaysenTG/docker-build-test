@@ -19,11 +19,15 @@ jobs:
 
       - name: Run commands on image
         run: |
-            docker pull ${{ matrix.docker_image }}
-            if docker image inspect ${{ matrix.docker_image }}
-            then
-              id=$(docker create ${{ matrix.docker_image }})
-              mkdir -p /tmp/$id
-            fi
+          docker pull ${{ matrix.docker_image }}
+          if docker image inspect ${{ matrix.docker_image }}
+          then
+            id=$(docker create ${{ matrix.docker_image }})
+            mkdir -p /tmp/$id
+          fi
 
+  echo-job:
+    needs: Explore-GitHub-Actions
+    runs-on: ubuntu-latest
+    steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
