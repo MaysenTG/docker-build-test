@@ -22,12 +22,12 @@ jobs:
           then
             id=$(docker create nginx:latest)
             mkdir -p /tmp/$id
-            echo "no_change=true" >> $GITHUB_OUTPUT
           fi
+          echo "no_change=true" >> $GITHUB_OUTPUT
 
       - name: Echo job
         run: |
-          if {{steps.run_nginx.outputs.no_change}}
+          if ${{ steps.run_nginx.outputs.no_change }}
           then
             echo "Image same Do not run kubectle stuff"
           else
