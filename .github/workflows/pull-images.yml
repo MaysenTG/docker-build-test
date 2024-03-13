@@ -27,8 +27,9 @@ jobs:
 
       - name: Echo job
         run: |
-          if ${{ steps.run_nginx.outputs.no_change }}
-          then
+          noChange=${{ steps.run_nginx.outputs.no_change }}
+
+          if [[ "${deploymentSuccess}" == true ]]; then
             echo "Image same Do not run kubectle stuff"
           else
             echo "Image diff run kubectl commands"
