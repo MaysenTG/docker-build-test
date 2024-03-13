@@ -24,13 +24,18 @@ jobs:
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
       - name: Pull Docker Images
+        id: pull-images
         run: |
           docker pull nginx:latest &&
             docker pull alpine:latest &&
             docker pull ubuntu:latest &&
             docker pull node:latest &&
-            docker pull python:latest &&
-          wait
+            docker pull python:latest
+
+      - name: List Docker Images
+        run: |
+          docker images
+
       - name: List Docker Images
         run: |
           docker images
