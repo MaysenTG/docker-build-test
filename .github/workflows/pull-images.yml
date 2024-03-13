@@ -23,7 +23,7 @@ jobs:
             id=$(docker create nginx:latest)
             mkdir -p /tmp/$id
           fi
-          echo "no_change=true" >> $GITHUB_OUTPUT
+          echo "no_change=true" >> "$GITHUB_OUTPUT"
 
       - name: Echo job
         run: |
