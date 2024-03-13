@@ -10,41 +10,20 @@ on:
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        docker_image: ['nginx:latest', 'alpine:latest', 'ubuntu:latest', 'node:latest', 'python:latest']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Pull Docker Images
+      - name: Run commands on image
         run: |
-          docker pull nginx:latest &&
-            docker pull alpine:latest &&
-            docker pull ubuntu:latest &&
-            docker pull node:latest &&
-            docker pull python:latest &&
-            wait
-
-      - name: List Docker Images
-        run: |
-          docker images
-
-      - name: List Docker Images
-        run: |
-          docker images
-
-      - name: "Run commands on alpine image"
-        run: |
-          if docker image inspect alpine:latest
-          then
-            id=$(docker create alpine:latest)
-            mkdir -p vendor
-          fi
-
-      - name: "Run commands on node image"
-        run: |
-          if docker image inspect node:latest
-          then
-            id=$(docker create node:latest)
-            mkdir -p vendor
-          fi
+            docker pull ${{ matrix.docker_image }}
+            if docker image inspect ${{ matrix.docker_image }}
+            then
+              id=$(docker create ${{ matrix.docker_image }})
+              mkdir -p /tmp/$id
+            fi
 
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
