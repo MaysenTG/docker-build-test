@@ -30,4 +30,21 @@ jobs:
       - name: List Docker Images
         run: |
           docker images
+
+      - name: "Run commands on alpine image"
+        run: |
+          if docker image inspect alpine:latest
+          then
+            id=$(docker create alpine:latest)
+            mkdir -p vendor
+          fi
+
+      - name: "Run commands on node image"
+        run: |
+          if docker image inspect node:latest
+          then
+            id=$(docker create node:latest)
+            mkdir -p vendor
+          fi
+
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
