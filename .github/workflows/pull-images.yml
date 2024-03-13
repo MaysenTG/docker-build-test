@@ -9,7 +9,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: macos-14
+    runs-on: macos-latest
     strategy:
       matrix:
         docker_image: ['nginx:latest', 'alpine:latest']
