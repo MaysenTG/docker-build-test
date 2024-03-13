@@ -34,4 +34,3 @@ jobs:
           else
             echo "Image diff run kubectl commands"
           fi
-        if: success()
