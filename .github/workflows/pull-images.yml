@@ -15,7 +15,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull Docker Images
-        id: pull-images
         run: |
           docker pull nginx:latest &&
             docker pull alpine:latest &&
