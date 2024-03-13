@@ -9,7 +9,7 @@ on:
 
 jobs:
   Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     strategy:
       matrix:
         docker_image: ['nginx:latest', 'alpine:latest']
@@ -25,10 +25,6 @@ jobs:
             id=$(docker create ${{ matrix.docker_image }})
             mkdir -p /tmp/$id
           fi
-
-      - name: List docker images
-        run: docker image ls
-        if: success()
 
       - name: Echo job
         run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
